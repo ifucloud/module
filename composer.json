@@ -1,11 +1,17 @@
 {
   "name": "ifucloud/oauth_token",
-  "type": "ifucloud-module",
+  "type": "library",
   "description": "Auth ifucloud token",
   "keywords": ["ifucloud"],
-  "license": "GPL-2.0+",
+  "license": "MIT",
   "homepage": "http://www.ifucloud.com/module/oauth_token",
   "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "zfming",
+      "email": "zfm@ifucloud.com"
+    }
+  ],
   "support": {
     "issues": "https://github.com/ifucloud/oauth_token/issues",
     "source": "https://github.com/ifucloud/oauth_token"
@@ -17,5 +23,17 @@
   "require-dev": {
     "guzzlehttp/guzzle": "^6.3",
     "predis/predis": "^1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ifucloud\\Moduel\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Ifucloud\\Moduel\\IfucloudServiceProvider"
+      ]
+    }
   }
 }

@@ -9,7 +9,7 @@
 namespace Ifucloud\Module;
 
 use Exception;
-use App\Entities\Service;
+use Ifucloud\Module\Entities\Service;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Redis;
 
@@ -167,6 +167,25 @@ trait OAuthToken
             throw new Exception('roles not exists', 404);
         } else {
             return $auth_token->token_roles;
+        }
+    }
+
+    /**
+     * @return mixed
+     * @throws Exception
+     */
+    public static function tokenPermissions()
+    {
+        $token = self::authorization();
+
+        $redis = Redis::connection('token');
+
+        $auth_token = json_decode($redis->get($token));
+
+        if (!$auth_token || !$auth_token->permissions) {
+            throw new Exception('permissions not exists', 404);
+        } else {
+            return $auth_token->permissions;
         }
     }
 

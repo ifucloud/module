@@ -1,6 +1,6 @@
 {
   "name": "ifucloud/module",
-  "type": "ifucloud-module",
+  "type": "library",
   "description": "Auth ifucloud token",
   "keywords": ["ifucloud"],
   "license": "MIT",
@@ -18,9 +18,7 @@
   },
   "require": {
     "php": ">=7.0.0",
-    "laravel/framework": "5.5.*"
-  },
-  "require-dev": {
+    "laravel/framework": "5.5.*",
     "guzzlehttp/guzzle": "^6.3",
     "predis/predis": "^1.1"
   },

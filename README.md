@@ -6,5 +6,5 @@
 
 ``` bash
 # publish vendor
-php artisan vendor:publish --provider "Ifucloud\mudule\IfucloudServiceProvider"
+php artisan vendor:publish --provider "Ifucloud\Module\IfucloudServiceProvider"
 ```

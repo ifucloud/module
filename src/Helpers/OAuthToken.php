@@ -6,7 +6,7 @@
  * Time: 下午3:08
  */
 
-namespace Ifucloud\Module;
+namespace Ifucloud\Module\Helpers;
 
 use Exception;
 use Ifucloud\Module\Entities\Service;

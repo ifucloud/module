@@ -10,7 +10,7 @@ namespace Ifucloud\Module;
 
 use Illuminate\Support\ServiceProvider;
 
-class IfucloudServiceProvider
+class IfucloudServiceProvider extends ServiceProvider
 {
     /**
      * Boot the service provider.

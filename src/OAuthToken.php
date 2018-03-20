@@ -185,7 +185,7 @@ trait OAuthToken
         if (!$auth_token || !$auth_token->permissions) {
             throw new Exception('permissions not exists', 404);
         } else {
-            return $auth_token->permissions;
+            return json_decode($auth_token->permissions);
         }
     }
 

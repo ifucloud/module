@@ -26,13 +26,13 @@
   },
   "autoload": {
     "psr-4": {
-      "Ifucloud\\Moduel\\": "src/"
+      "Ifucloud\\Module\\": "src/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "Ifucloud\\Moduel\\IfucloudServiceProvider"
+        "Ifucloud\\Module\\IfucloudServiceProvider"
       ]
     }
   }

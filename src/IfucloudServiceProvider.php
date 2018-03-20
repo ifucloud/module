@@ -8,6 +8,7 @@
 
 namespace Ifucloud\Module;
 
+use Illuminate\Support\ServiceProvider;
 
 class IfucloudServiceProvider
 {

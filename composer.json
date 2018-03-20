@@ -1,0 +1,19 @@
+{
+  "name": "ifucloud/oauth_token",
+  "type": "ifucloud-module",
+  "description": "Auth ifucloud token",
+  "keywords": ["ifucloud"],
+  "license": "GPL-2.0+",
+  "homepage": "http://www.ifucloud.com/module/oauth_token",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://github.com/ifucloud/oauth_token/issues",
+    "source": "https://github.com/ifucloud/oauth_token"
+  },
+  "require": {
+    "php": ">=7.0.0",
+    "guzzlehttp/guzzle": "^6.3",
+    "laravel/framework": "5.5.*",
+    "predis/predis": "^1.1"
+  }
+}

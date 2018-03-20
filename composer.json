@@ -1,5 +1,5 @@
 {
-  "name": "ifucloud/oauth_token",
+  "name": "ifucloud/module",
   "type": "ifucloud-module",
   "description": "Auth ifucloud token",
   "keywords": ["ifucloud"],

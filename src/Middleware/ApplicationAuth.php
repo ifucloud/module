@@ -61,7 +61,7 @@ class ApplicationAuth
 
             return response()->json([
                 'error'   => true,
-                'message' => 'Not Authorization'
+                'message' => $e->getMessage()
             ], 401);
         }
     }

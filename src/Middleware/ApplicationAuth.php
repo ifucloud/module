@@ -23,8 +23,7 @@ class ApplicationAuth
     {
 
         try {
-            $token = $this->authorization();
-            if (!$token) $token = $this->token();
+            $token = $this->authorizationOrToken();
             $redis = Redis::connection('token');
 
             if ($redis->exists($token)) return $next($request);

@@ -210,10 +210,10 @@ trait OAuthToken
     }
 
     /**
-     * @return mixed
+     * @return array|string
      * @throws Exception
      */
-    public static function authorizationOrToken()
+    public static function authorization()
     {
         if (!$authorization = request()->header('Authorization')) {
             if (!$token = request()->get('token')) {
@@ -221,19 +221,6 @@ trait OAuthToken
             } else {
                 return $token;
             }
-        } else {
-            return $authorization;
-        }
-    }
-
-    /**
-     * @return array|string
-     * @throws Exception
-     */
-    public static function authorization()
-    {
-        if (!$authorization =  request()->header('Authorization')) {
-            throw new Exception('authorization not exists', 404);
         } else {
             return $authorization;
         }

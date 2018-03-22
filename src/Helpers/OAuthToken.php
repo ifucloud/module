@@ -94,6 +94,49 @@ trait OAuthToken
     }
 
     /**
+     * @param $service
+     * @return mixed
+     * @throws Exception
+     */
+    public static function allowServiceValidator($service)
+    {
+        $token = self::authorization();
+
+        $redis = Redis::connection('token');
+
+        $auth_token = json_decode($redis->get($token));
+
+        if (!$auth_token || !$auth_token->allow_service || !in_array($service, $auth_token->allow_service)) {
+            throw new Exception('service is not allow', 404);
+        } else {
+            return $auth_token->token_type;
+        }
+    }
+
+    /**
+     * @param $method
+     * @param $type_code
+     * @return mixed
+     * @throws Exception
+     */
+    public static function permissionsValidator($method, $type_code)
+    {
+        $token = self::authorization();
+
+        $redis = Redis::connection('token');
+
+        $auth_token = json_decode($redis->get($token), true);
+
+        $permissions = $auth_token['token_permissions'][$method];
+
+        if (!$auth_token || !in_array($type_code, $permissions)) {
+            throw new Exception('permissions not allow', 404);
+        } else {
+            return true;
+        }
+    }
+
+    /**
      * @return mixed
      * @throws Exception
      */

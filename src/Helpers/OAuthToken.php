@@ -106,10 +106,14 @@ trait OAuthToken
 
         $auth_token = json_decode($redis->get($token));
 
-        if (!$auth_token || !$auth_token->allow_service || !in_array($service, $auth_token->allow_service)) {
+        if (!$auth_token || !$auth_token->allow_service) {
+            throw new Exception('service is not allow', 404);
+        } else if ($auth_token->allow_service[0] == '*') {
+            return true;
+        } else if (!in_array($service, $auth_token->allow_service)) {
             throw new Exception('service is not allow', 404);
         } else {
-            return $auth_token->token_type;
+            return true;
         }
     }
 
@@ -127,9 +131,15 @@ trait OAuthToken
 
         $auth_token = json_decode($redis->get($token), true);
 
+        if (!$auth_token) {
+            throw new Exception('permissions not allow', 404);
+        }
+
         $permissions = $auth_token['token_permissions'][$method];
 
-        if (!$auth_token || !in_array($type_code, $permissions)) {
+        if ($permissions[0] == '*') {
+            return true;
+        } else if (!in_array($type_code, $permissions)) {
             throw new Exception('permissions not allow', 404);
         } else {
             return true;

@@ -106,11 +106,11 @@ trait OAuthToken
 
         $auth_token = json_decode($redis->get($token));
 
-        if (!$auth_token || !$auth_token->allow_service) {
+        if (!$auth_token || !$auth_token->allow_services) {
             throw new Exception('service is not allow', 404);
-        } else if ($auth_token->allow_service[0] == '*') {
+        } else if ($auth_token->allow_services[0] == '*') {
             return true;
-        } else if (!in_array($service, $auth_token->allow_service)) {
+        } else if (!in_array($service, $auth_token->allow_services)) {
             throw new Exception('service is not allow', 404);
         } else {
             return true;

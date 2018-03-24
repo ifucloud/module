@@ -25,7 +25,7 @@ trait OAuthToken
         $token_type = self::tokenType();
 
         if ($token_type != 'service') {
-            throw new Exception('service not auth', 401);
+            throw new Exception('非服务令牌', 401);
         } else {
             return true;
         }
@@ -42,7 +42,7 @@ trait OAuthToken
         if ($token_type != 'application'
             && $token_type != 'customer'
             && $token_type != 'business') {
-            throw new Exception('application not auth', 401);
+            throw new Exception('非应用令牌', 401);
         } else {
             return true;
         }
@@ -57,7 +57,7 @@ trait OAuthToken
         $token_type = self::tokenType();
 
         if ($token_type != 'customer' && $token_type != 'business') {
-            throw new Exception('login not auth', 401);
+            throw new Exception('非登录令牌', 401);
         } else {
             return true;
         }
@@ -72,7 +72,7 @@ trait OAuthToken
         $token_type = self::tokenType();
 
         if ($token_type != 'customer') {
-            throw new Exception('customer not auth', 401);
+            throw new Exception('非客户令牌', 401);
         } else {
             return true;
         }
@@ -87,7 +87,7 @@ trait OAuthToken
         $token_type = self::tokenType();
 
         if ($token_type != 'business') {
-            throw new Exception('business not auth', 401);
+            throw new Exception('非商户令牌', 401);
         } else {
             return true;
         }
@@ -108,11 +108,11 @@ trait OAuthToken
         $auth_token = json_decode($redis->get($token));
 
         if (!$auth_token || !$auth_token->allow_services) {
-            throw new Exception('service is not allow', 404);
+            throw new Exception('服务驳回', 404);
         } else if ($auth_token->allow_services[0] == '*') {
             return true;
         } else if (!in_array($service->ser_code, $auth_token->allow_services)) {
-            throw new Exception('service is not allow', 404);
+            throw new Exception('服务驳回', 404);
         } else {
             return true;
         }
@@ -133,7 +133,7 @@ trait OAuthToken
         $auth_token = json_decode($redis->get($token), true);
 
         if (!$auth_token) {
-            throw new Exception('permissions not allow', 404);
+            throw new Exception('权限不足', 404);
         }
 
         $permissions = $auth_token['token_permissions'][$method];
@@ -141,7 +141,7 @@ trait OAuthToken
         if ($permissions[0] == '*') {
             return true;
         } else if (!in_array($type_code, $permissions)) {
-            throw new Exception('permissions not allow', 404);
+            throw new Exception('权限不足', 404);
         } else {
             return true;
         }
@@ -160,7 +160,7 @@ trait OAuthToken
         $auth_token = json_decode($redis->get($token));
 
         if (!$auth_token || !$auth_token->token_type) {
-            throw new Exception('token type not exists', 404);
+            throw new Exception('认证不存在', 404);
         } else {
             return $auth_token->token_type;
         }
@@ -180,7 +180,7 @@ trait OAuthToken
         $auth_token = json_decode($redis->get($token));
 
         if (!$auth_token || !$auth_token->token_account) {
-            throw new Exception('token account not exists', 404);
+            throw new Exception('认证令牌不允许', 404);
         } else {
             return $auth_token->token_account;
         }
@@ -199,7 +199,7 @@ trait OAuthToken
         $auth_token = json_decode($redis->get($token));
 
         if (!$auth_token || !$auth_token->token_username) {
-            throw new Exception('token account not exists', 404);
+            throw new Exception('认证不存在', 404);
         } else {
             return $auth_token->token_username;
         }
@@ -218,7 +218,7 @@ trait OAuthToken
         $auth_token = json_decode($redis->get($token));
 
         if (!$auth_token || !$auth_token->token_roles) {
-            throw new Exception('roles not exists', 404);
+            throw new Exception('角色不存在', 404);
         } else {
             return $auth_token->token_roles;
         }
@@ -237,7 +237,7 @@ trait OAuthToken
         $auth_token = json_decode($redis->get($token));
 
         if (!$auth_token || !$auth_token->permissions) {
-            throw new Exception('permissions not exists', 404);
+            throw new Exception('权限不存在', 404);
         } else {
             return json_decode($auth_token->permissions);
         }
@@ -257,7 +257,7 @@ trait OAuthToken
         $auth_token = json_decode($redis->get($token));
 
         if (!$auth_token || !$auth_token->owner_id) {
-            throw new Exception('application not exists', 404);
+            throw new Exception('应用不存在', 404);
         } else {
             return $auth_token->owner_id;
         }
@@ -271,7 +271,7 @@ trait OAuthToken
     {
         if (!$authorization = request()->header('Authorization')) {
             if (!$token = request()->get('token')) {
-                throw new Exception('authorization or token not exists', 404);
+                throw new Exception('未授权认证令牌', 404);
             } else {
                 return $token;
             }
@@ -287,7 +287,7 @@ trait OAuthToken
     public static function token()
     {
         if (!$token = request()->get('token')) {
-            throw new Exception('token not exists', 404);
+            throw new Exception('未授权认证令牌', 404);
         } else {
             return $token;
         }

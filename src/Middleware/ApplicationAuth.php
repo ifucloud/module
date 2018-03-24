@@ -38,7 +38,7 @@ class ApplicationAuth
             if ($response->getStatusCode() != 200) {
                 return response()->json([
                     'error'   => true,
-                    'message' => 'Not Authorization'
+                    'message' => '服务拒绝'
                 ], 401);
             }
 
@@ -47,7 +47,7 @@ class ApplicationAuth
             if (isset($body->error)) {
                 return response()->json([
                     'error'   => true,
-                    'message' => 'Not Authorization'
+                    'message' => '服务拒绝'
                 ], 401);
             }
 

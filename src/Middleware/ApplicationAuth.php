@@ -27,7 +27,10 @@ class ApplicationAuth
             $token = $this->authorization();
             $redis = Redis::connection('token');
 
-            if ($redis->exists($token)) return $next($request);
+            if ($redis->exists($token)) {
+                $this->allowServiceValidator();
+                return $next($request);
+            }
             $client = new Client(['base_uri' => config('services.hosts.oauth')]);
 
             $response = $client->request('GET', 'api/oauth/auth',[
@@ -54,7 +57,7 @@ class ApplicationAuth
             $oauth_token = $body->data;
             $redis->set($token, json_encode($oauth_token));
             $redis->expire($token, 86400*7);
-
+            $this->allowServiceValidator();
             return $next($request);
 
         }  catch (Exception $e) {

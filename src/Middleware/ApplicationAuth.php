@@ -23,7 +23,6 @@ class ApplicationAuth
     {
 
         try {
-            $this->allowServiceValidator();
             $token = $this->authorization();
             $redis = Redis::connection('token');
 

@@ -94,12 +94,13 @@ trait OAuthToken
     }
 
     /**
-     * @param $service
      * @return mixed
      * @throws Exception
      */
-    public static function allowServiceValidator($service)
+    public static function allowServiceValidator()
     {
+        $service = Service::where('ser_state', '=', '1')->first();
+
         $token = self::authorization();
 
         $redis = Redis::connection('token');
@@ -110,7 +111,7 @@ trait OAuthToken
             throw new Exception('service is not allow', 404);
         } else if ($auth_token->allow_services[0] == '*') {
             return true;
-        } else if (!in_array($service, $auth_token->allow_services)) {
+        } else if (!in_array($service->ser_code, $auth_token->allow_services)) {
             throw new Exception('service is not allow', 404);
         } else {
             return true;
